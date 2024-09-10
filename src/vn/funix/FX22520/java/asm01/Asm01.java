@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 
 public class Asm01 {
-    public static final String AUTHOR = "FX123456";
+    public static final String AUTHOR = "FX22520";
     public static final String VERSION = "@v1.0.0";
 
     static ArrayList<String> provinceName;
@@ -17,14 +17,7 @@ public class Asm01 {
     public static void main(String[] args) {
         initCenter();
         initData();
-        //UI design
-        System.out.printf("%s\n", "+-----------+--------------+-----------+");
-        System.out.println("| NGAN HANG SO  | "+ AUTHOR+ "   " + VERSION +"   |");
-        System.out.printf("%s\n", "+-----------+--------------+-----------+");
-        System.out.println("| 1. Nhap CCCD                         |");
-        System.out.println("| 0. Thoat                             |");
-        System.out.printf("%s\n", "+-----------+--------------+-----------+");
-
+        initMainMenu();
         //run
         try {
             whenProgramIsRunning();
@@ -35,15 +28,24 @@ public class Asm01 {
 
         }
         catch (NumberFormatException exception) {
-            System.out.println("Ngoại lệ: Nhập số chứ không nhập chữ");
+            System.err.println("Ngoại lệ: Nhập số chứ không nhập chữ");
             whenProgramIsRunning();
 
         }
         catch (StackOverflowError exception) {
             System.out.println("Ngoại lệ: Tràn bộ nhớ");
             whenProgramIsRunning();
-
         }
+    }
+    private static void initMainMenu() {
+        //UI design
+        System.out.printf("%s\n", "+-----------+--------------+-----------+");
+        System.out.println("| NGAN HANG SO  | " + AUTHOR + " | " + VERSION + "   |");
+        System.out.printf("%s\n", "+-----------+--------------+-----------+");
+        System.out.println("| 1. Nhap CCCD                         |");
+        System.out.println("| 0. Thoat                             |");
+        System.out.printf("%s\n", "+-----------+--------------+-----------+");
+
     }
 
     private static void initData() {// lưu vào để tạo 1 lần.
@@ -239,7 +241,7 @@ public class Asm01 {
         }
     }
 
-    public static void typeAlphaNumericPinCode(String randomString){
+    public static void typeAlphaNumericPinCode(String randomString){//hard pin code
         System.out.println("Input your code: " + randomString);
         String alphaNumberInput = sc.next();
         if (!alphaNumberInput.equals(randomString)) {
@@ -247,7 +249,7 @@ public class Asm01 {
             typeAlphaNumericPinCode(randomString);
         } else typeInputID();
     }
-    public static void typeNumericPinCode(int randomCode) {
+    public static void typeNumericPinCode(int randomCode) {//easy pin code
         System.out.println("Input your code: " + randomCode);
         int numberInput = sc.nextInt();
         if (numberInput != randomCode) {
@@ -355,7 +357,7 @@ public class Asm01 {
     public static String checkYearAndGender2(String inputID) {
         char subInputID = inputID.charAt(3);
         int num = Integer.parseInt(String.valueOf(subInputID));
-        String gender = (num % 2 == 0) ? "Nam" : "Nu";
+        String gender = (num % 2 == 0) ? "Nam" : "Nữ";
         for (Map.Entry<String, List<String>> entry : cemterMap.entrySet()){
             if (entry.getValue().contains(String.valueOf(num))){
                 return gender + " | "+ entry.getKey()+ inputID.substring(4,6);
@@ -423,13 +425,11 @@ public class Asm01 {
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         Random random = new Random();
         StringBuilder sb = new StringBuilder();
-
         for (int i = 0; i < 6; i++) {
             int index = random.nextInt(alphabet.length());
             char randomChar = alphabet.charAt(index);
             sb.append(randomChar);
         }
-
         return sb.toString();
     }
 }
